@@ -4,11 +4,35 @@
 \usepackage{float} % use H for figure placement
 \usepackage{pgfplots}
 \usetikzlibrary{arrows}
-\usepackage{amsmath}
+\usepackage{amsmath,amssymb}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
+\usepackage[amsthm]{ntheorem}
+\usepackage{xcolor}
+\usepackage{framed}
+\definecolor{shadecolor}{rgb}{0.95,0.95,0.95}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{ex}{Example}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
 \usepackage [autostyle, english = american]{csquotes}
 \MakeOuterQuote{"}
+\newcommand{\Section}[1]{\hrule\hrule\section{#1}}
+\newcommand{\Def}[2]{
+\begin{shaded*}
+\begin{definition}{\textit{#1}}\\#2\end{definition}
+\end{shaded*}
+}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+
 
 \title{ESE-680-005 Reinforcement Learning}
 \author{Rebecca Li}
@@ -17,10 +41,10 @@
 \begin{document}
 	\maketitle
 
-\section{Organization}
+\section*{Organization}
 \begin{itemize}
 	\item Instructors: Miguel and Santiago 
-	\item TAs: Clark, Kate, Arbaaz (monday 5-7 GRASP conf room, wednesday 9-11 452C walnut 3401, Arbaaz on demand)
+	\item TAs: Clark, Kate, Arbaaz (Monday 5-7 GRASP conf room, Wednesday 9-11 452C walnut 3401, Arbaaz on demand)
 	\item Homeworks: 50\%, groups of 2 students
 	\item Midterm: Oct 17th (MDP, policy gradient)
 	\item Take-home final: Dec 5th: Theoretical, implementation
@@ -28,7 +52,9 @@
 	\item Textbook: "Algorithms for Reinforcement Learning" Csaba Szepesvari, \\
 		\href{https://sites.ualberta.ca/~szepesva/RLBook.html}{https://sites.ualberta.ca/~szepesva/RLBook.html}
 \end{itemize}	
-\section{Lecture 1: Overview}
+
+
+\Section{Lecture 1: Overview}
 \subsection{What is Reinforcement Learning (RL)}
 A \textbf{Model-free} framework to formalize \textbf{sequential} decision making. We have an agent at time $t$ that interacts in the environment:
 \begin{itemize}
@@ -38,5 +64,42 @@ A \textbf{Model-free} framework to formalize \textbf{sequential} decision making
 \end{itemize}
 
 Our goal is to learn the best policy $\pi^*(s)$ to find the best action in the world. 
+Some particulars:
+\begin{itemize}
+	\item No supervision, only reward signal
+	\item feedback is delayed (not instantenous)
+	\item time matters, sequential, data not i.i.d.
+	\item Agent picks new data
+\end{itemize}
+
+The future of RL:
+\begin{itemize}
+	\item RL and robotics
+	\item Autonomous driving
+	\item Safe learning
+\end{itemize}
+
+\subsection{Why use RL?}
+In the case of the cart-pole, we have a fairly simply problem which we already know how to control. This is nice because we can benchmark against the designed controller. However, in practice we should do something else, like a PID controller because it will be faster to use. Despite this, it makes a good test problem.
+
+Another problem that RL could be good at is a problem with delayed/sparse reward, such as making it to the top of a mountain.
+
+\subsection{Markov Decision Process}
+
+\Def{Markov Decision Process}{A \textbf{memory-less process} that given a state $s_t$ and action $a_t$, will transition to new $s_{t+1}$. It also receives a reward $r_t$ after taking the action. }
+
+
+Our goal is to find a policy $\pi:\mathcal{S} \to \mathcal{A}$ that maximizes reward:
+$$\pi^*(s) = \argmin_a \mathbb{E}[r(s,a)]$$
+
+\subsection{Successes in RL}
+\begin{itemize}
+	\item "Playing Atari with Deep Reinforcement Learning" V.Mnih et.al. (2013)
+	\item Go success. Part of the problem with Stockfish or Elmo have hardcoded features, while AlphaGo Zero has no such features. This is great for sparse reward problems. AlphaZero learns value of the states, and then selects action with the best option.
+	\item AlphaStar. Some problems are imperfect information, need for long term planning, large action space, and still requires 200 years of gameplay.
+	\item OpenAI Five: multiagent problems. 45000 years of self-play over 10 months.
+	\item Aggressive helicopters
+	\item Grasping tasks, arm farms. 
+\end{itemize}
 
 \end{document}
