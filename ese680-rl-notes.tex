@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{float} % use H for figure placement
+\usepackage{pgfplots}
+\usetikzlibrary{arrows}
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+
+\title{ESE-680-005 Reinforcement Learning}
+\author{Rebecca Li}
+\date{Fall 2019}
+
+\begin{document}
+	\maketitle
+
+\section{Organization}
+\begin{itemize}
+	\item Instructors: Miguel and Santiago 
+	\item TAs: Clark, Kate, Arbaaz (monday 5-7 GRASP conf room, wednesday 9-11 452C walnut 3401, Arbaaz on demand)
+	\item Homeworks: 50\%, groups of 2 students
+	\item Midterm: Oct 17th (MDP, policy gradient)
+	\item Take-home final: Dec 5th: Theoretical, implementation
+	\item Textbook: "Reinforcement Learning: an introduction" by Sutton and Barto
+	\item Textbook: "Algorithms for Reinforcement Learning" Csaba Szepesvari, \\
+		\href{https://sites.ualberta.ca/~szepesva/RLBook.html}{https://sites.ualberta.ca/~szepesva/RLBook.html}
+\end{itemize}	
+\section{Lecture 1: Overview}
+\subsection{What is Reinforcement Learning (RL)}
+A \textbf{Model-free} framework to formalize \textbf{sequential} decision making. We have an agent at time $t$ that interacts in the environment:
+\begin{itemize}
+	\item Actions $A_t \in \mathcal{A}(s)$  (possibly state dependent)
+	\item States $S_t \in \mathcal{S}$
+	\item Reward $R_t$
+\end{itemize}
+
+Our goal is to learn the best policy $\pi^*(s)$ to find the best action in the world. 
+
+\end{document}
